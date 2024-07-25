@@ -1,28 +1,27 @@
 import { Button, IconButton, Container, Stack, Typography, InputAdornment } from '@mui/material'
 import * as Yup from 'yup'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
-import FormProvider from '../component/hook-form/FormProvider'
+import FormProvider from '../../component/hook-form/FormProvider'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { RHFTextField } from '../component/hook-form'
+import { RHFTextField } from '../../component/hook-form'
 import { LoadingButton } from '@mui/lab'
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { auth, db } from '../firebase'
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { auth, db } from '../../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
-import AuthContext from './AuthGuard/AuthProvider'
-import { ArrowLeftIcon, ArrowRightIcon, HomeIcon } from '@heroicons/react/16/solid'
+import AuthContext from '../AuthGuard/AuthProvider'
 import { EyeIcon } from '@heroicons/react/20/solid'
+import MediaQueryContext from '../MediaContext/MediaProvider'
 
 export default function Login() {
 
     const navigate = useNavigate()
 
     const { currentUser, dispatch } = useContext(AuthContext)
+    const {isDesktop} = useContext(MediaQueryContext)
 
     console.log('AuthContext', currentUser)
-
-    const [datauser, setDataUser] = useState([])
 
     const [showPassword, setShowPassword] = useState(false)
 
@@ -81,7 +80,6 @@ export default function Login() {
     const handleShowInfo = async (id) => {
         const userData = await getDoc(doc(db, "users", id))
         dispatch({type: 'LOGIN', payload:{ userID: id, ...userData.data()}})
-        setDataUser(userData?.data())
         navigate('/mainpage/home')
     }
 
