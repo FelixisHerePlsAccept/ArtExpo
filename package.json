@@ -11,7 +11,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": 
+  {
     "@emotion/react": "^11.12.0",
     "@emotion/styled": "^11.12.0",
     "@heroicons/react": "^2.1.5",
