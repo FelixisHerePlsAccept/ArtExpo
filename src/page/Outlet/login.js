@@ -159,7 +159,7 @@ export default function Login() {
                                     )
                                 }}
                             />
-                            <LoadingButton type="submit" variant="contained" loading={isSubmitting}>Create Account</LoadingButton>
+                            <LoadingButton type="submit" variant="contained" loading={isSubmitting}>Log In</LoadingButton>
                             <Stack direction='row' spacing={2}>
                                 <Typography variant='caption'>
                                     Don't have an account?
