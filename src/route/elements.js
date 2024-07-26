@@ -14,8 +14,8 @@ export const MainLayout = FallBacker(lazy(() => import('../page/Layout/MainLayou
 // Children
 
 // Auth
-export const Login = FallBacker(lazy(() => import('../page/login')));
-export const Signup = FallBacker(lazy(() => import('../page/signup')));
+export const Login = FallBacker(lazy(() => import('../page/Outlet/login')));
+export const Signup = FallBacker(lazy(() => import('../page/Outlet/signup')));
 
 // Mainpage
 export const Home = FallBacker(lazy(() => import('../page/Outlet/Home')));

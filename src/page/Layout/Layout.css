@@ -1,0 +1,24 @@
+@keyframes movingBackground {
+    0% {
+        background-position: 0% 0;
+    }
+    /* 50% {
+        background-position: 100% 0;
+    } */
+    100%{
+        background-position: 100% 0;
+    }
+}
+
+.animated_background {
+    background-image: url('../../image-folder/loginpic.jpg');
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: movingBackground 60s linear infinite;
+}
+
+.nav_box_light {
+    background-color: white;
+    color: black;
+}

@@ -22,11 +22,7 @@ export const AuthProvider = ({ children }) => {
         [state.currentUser]
     )
 
-    return (
-        <AuthContext.Provider value={{ ...MemoizedValue, dispatch }}>
-            {children}
-        </AuthContext.Provider>
-    )
+    return <AuthContext.Provider value={{ ...MemoizedValue, dispatch }}>{children}</AuthContext.Provider>
 }
 
 export default AuthContext;
