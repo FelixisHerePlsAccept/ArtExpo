@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, IconButton, InputAdornment, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -11,11 +11,14 @@ import { RHFTextField } from '../../component/hook-form'
 import FormProvider from '../../component/hook-form/FormProvider'
 import { auth, db } from '../../firebase';
 import MediaQueryContext from '../MediaContext/MediaProvider';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 
 
 export default function Signup() {
 
     const navigate = useNavigate()
+
+    const [showPassword, setShowPassword] = useState(false)
 
     const {isDesktop}=useContext(MediaQueryContext)
 
@@ -88,13 +91,14 @@ export default function Signup() {
     }
 
     const handleGoToLogin = () => {
+        reset(defaultValue)
         navigate('/auth/login')
     }
 
     if(isDesktop){
         return (
             <Stack direction='column' spacing={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Typography variant='h4'>
+                <Typography variant='h4' sx={{textAlign:'center'}}>
                     Come Join Our Community!
                 </Typography>
                 <Typography variant='h5'>
@@ -104,7 +108,21 @@ export default function Signup() {
                     <Stack direction='column' spacing={2} sx={{ width:'30vw' }}>
                         <RHFTextField name='name' label='Display Name' />
                         <RHFTextField name='email' label='Email' />
-                        <RHFTextField name='password' label='Password' />
+                        <RHFTextField 
+                            name="password" 
+                            label="Password" 
+                            autoComplete='off' 
+                            type= {showPassword ? 'text' :'password' }
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position='end'>
+                                        <IconButton onClick={()=>setShowPassword(prev=>!prev)}>
+                                            {!showPassword ? <EyeSlashIcon style={{width:'1.5rem', height:'1.5rem'}} /> : <EyeIcon style={{width:'1.5rem', height:'1.5rem'}} /> } 
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
                         <LoadingButton type="submit" variant="contained" loading={isSubmitting}>Create Account</LoadingButton>
                     </Stack>
                 </FormProvider>
@@ -134,7 +152,22 @@ export default function Signup() {
                             </Typography>
                             <RHFTextField name='name' label='Display Name' sx={{width:'80%'}} />
                             <RHFTextField name='email' label='Email' sx={{width:'80%'}} />
-                            <RHFTextField name='password' label='Password' sx={{width:'80%'}} />
+                            <RHFTextField 
+                                name="password" 
+                                label="Password" 
+                                autoComplete='off' 
+                                sx={{width:"80%"}}
+                                type= {showPassword ? 'text' :'password' }
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position='end'>
+                                            <IconButton onClick={()=>setShowPassword(prev=>!prev)}>
+                                                {!showPassword ? <EyeSlashIcon style={{width:'1.5rem', height:'1.5rem'}} /> : <EyeIcon style={{width:'1.5rem', height:'1.5rem'}} /> } 
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
                             <LoadingButton type="submit" variant="contained" loading={isSubmitting}>Create Account</LoadingButton>
                             <Stack direction='column' sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                                 <Typography variant='subtitle2'>Already have an account?</Typography>
